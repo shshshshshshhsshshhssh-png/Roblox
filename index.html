@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>IP Redirect</title>
+</head>
+<body>
+  <script>
+    async function redirectByIP() {
+      try {
+        const res = await fetch("https://api.ipify.org/?format=json");
+        const data = await res.json();
+
+        // Example: "236.67.569.118"
+        const ip = data.ip;
+
+        // Take first section before the dot
+        const firstPart = ip.split(".")[0];
+
+        // Build redirect URL
+        const url = `https://${firstPart}.ip.nowgg.fun/apps/a/19900/b.html`;
+
+        // Redirect
+        window.location.href = url;
+
+      } catch (err) {
+        console.error("Failed to fetch IP:", err);
+      }
+    }
+
+    redirectByIP();
+  </script>
+</body>
+</html>
