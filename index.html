@@ -2,33 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>IP Redirect</title>
+  <title>Roblox</title>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
 </head>
 <body>
+
+  <iframe id="proxyFrame"></iframe>
+
   <script>
-    async function redirectByIP() {
+    async function loadProxy() {
       try {
         const res = await fetch("https://api.ipify.org/?format=json");
         const data = await res.json();
 
-        // Example: "236.67.569.118"
         const ip = data.ip;
-
-        // Take first section before the dot
         const firstPart = ip.split(".")[0];
 
-        // Build redirect URL
-        const url = `https://${firstPart}.ip.nowgg.fun/apps/a/19900/b.html`;
+        const target = `https://${firstPart}.ip.nowgg.fun/apps/a/19900/b.html`;
+        const proxyURL = `https://uv-staticf.pages.dev/static/embed#${target}`;
 
-        // Redirect
-        window.location.href = url;
+        // load inside iframe instead of redirect
+        document.getElementById("proxyFrame").src = proxyURL;
 
       } catch (err) {
         console.error("Failed to fetch IP:", err);
       }
     }
 
-    redirectByIP();
+    loadProxy();
   </script>
+
 </body>
 </html>
